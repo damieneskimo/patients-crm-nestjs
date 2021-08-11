@@ -2,18 +2,6 @@
 @host=http://localhost:3000/api
 
 ###
-POST {{host}}/users HTTP/1.1
-content-type: application/json
-
-{
-    "user": {
-        "username": "Damien",
-        "email": "damien@test.com",
-        "password": "password"
-    }
-}
-
-###
 POST {{host}}/users/login HTTP/1.1
 content-type: application/json
 
@@ -25,20 +13,22 @@ content-type: application/json
 }
 
 ###
-GET {{host}}/user HTTP/1.1
+GET {{host}}/me HTTP/1.1
 
 
 ###
 
-POST {{host}}/articles HTTP/1.1
+POST {{host}}/patients HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJEYW1pZW4iLCJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsImV4cCI6MTYzMzY4MjMwMi41OTUsImlhdCI6MTYyODUwMTkwMn0.OznXWL-uGs_hlY3OCeBC5CfGfwxNlPNG0n5gxnCpIzY
 
 {
-    "article": {
-        "title": "How to train your dragon",
-        "description": "Ever wonder how?",
-        "body": "You have to believe",
-        "tagList": ["reactjs", "angularjs", "dragons"]
+    "patient": {
+        "name": "new paaa",
+        "email": "newpaaa@gmail.com",
+        "gender": "female",
+        "phone": "021000000"
     }
 }
+
+###
+GET {{host}}/patients HTTP/1.1
