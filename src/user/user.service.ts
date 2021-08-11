@@ -5,8 +5,10 @@ import { CreateUserDto, LoginDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 import { UserRO } from './interfaces';
 import * as bcrypt from 'bcrypt';
+import { Command, Console, createSpinner } from 'nestjs-console';
 
 @Injectable()
+@Console()
 export class UserService {
   constructor(
     @InjectRepository(User)
@@ -28,5 +30,19 @@ export class UserService {
 
   generateToken(user: User): string {
     return ''
+  }
+
+  @Command({
+    command: 'create-admin-user',
+    description: 'Create an admin user'
+  })
+  async createAdminUser(): Promise<void> {
+    const spin = createSpinner();
+    spin.start('creating user...');
+
+    // simulate a long task of 1 seconds
+    // const files = await new Promise((done) => setTimeout(() => done(['fileA', 'fileB']), 1000));
+
+    spin.succeed('Admin user created successfully!');
   }
 }
