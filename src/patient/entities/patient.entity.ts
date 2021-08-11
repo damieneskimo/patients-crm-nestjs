@@ -1,7 +1,7 @@
-import { IsEmail } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Note } from "./note.entity";
 
-@Entity('patients')
+@Entity()
 export class Patient {
     @PrimaryGeneratedColumn()
     id: number;
@@ -10,7 +10,6 @@ export class Patient {
     name: string;
 
     @Column()
-    @IsEmail()
     email: string;
 
     @Column({default: 'male'})
@@ -18,4 +17,14 @@ export class Patient {
 
     @Column()
     phone: string;
+
+    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    createdAt: Date;
+  
+    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    updatedAt: Date;
+
+    @OneToMany(type => Note, note => note.patient, {eager: true})
+    @JoinColumn()
+    notes: Note[]
 }
