@@ -18,7 +18,7 @@ export class UserService {
   async findByCredentials({email, password}: LoginDto): Promise<User> {
     const user = await this.UserRepository.findOne({email});
     if (! user) {
-        return null;
+      return null;
     }
     
     if (await bcrypt.compare(password, user.password)) {
@@ -34,15 +34,36 @@ export class UserService {
 
   @Command({
     command: 'create-admin-user',
-    description: 'Create an admin user'
+    description: 'Create an admin user',
+    options: [
+        {
+            flags: '-n, --name <name>',
+            required: true
+        },
+        {
+            flags: '-e, --email <email>',
+            required: true
+        },
+        {
+            flags: '-p, --password <password>',
+            required: true
+        }
+    ]
   })
-  async createAdminUser(): Promise<void> {
+  async createAdminUser(options: CreateUserDto): Promise<void> {    
     const spin = createSpinner();
     spin.start('creating user...');
 
-    // simulate a long task of 1 seconds
-    // const files = await new Promise((done) => setTimeout(() => done(['fileA', 'fileB']), 1000));
+    const user = new User();
+    Object.assign(user, options);
+    user.role = 'admin';
 
-    spin.succeed('Admin user created successfully!');
+    const admin = await this.UserRepository.save(user);
+    
+    if (admin) {
+      spin.succeed('Admin user created successfully!');
+    } else {
+      spin.fail('Something went wrong when creating the admin user.')
+    }
   }
 }

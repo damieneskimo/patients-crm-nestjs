@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Patient } from './patient.entity';
 
 @Entity()
@@ -12,9 +12,9 @@ export class Note {
     @ManyToOne(type => Patient, patient => patient.notes)
     patient: Patient
 
-    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
-  
-    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 }

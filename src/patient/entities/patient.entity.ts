@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { Note } from "./note.entity";
 
 @Entity()
@@ -18,10 +18,10 @@ export class Patient {
     @Column()
     phone: string;
 
-    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+    @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
-  
-    @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+
+    @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 
     @OneToMany(type => Note, note => note.patient, {eager: true})
