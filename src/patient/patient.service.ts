@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { validate, ValidationError } from 'class-validator';
 import { DeleteResult, Repository } from 'typeorm';
 import { CreateNoteDto } from './dto/note.dto';
 import { CreatePatientDto, UpdatePatientDto } from './dto/patient.dto';
@@ -22,6 +23,12 @@ export class PatientService {
     patient.email = createPatientDto.email;
     patient.gender = createPatientDto.gender;
     patient.phone = createPatientDto.phone;
+
+    const errors = await validate(patient);
+    if (errors.length > 0) {
+      const messages = Object.values(errors[0].constraints);
+      throw new HttpException({errors: messages}, HttpStatus.BAD_REQUEST);
+    }
 
     const newPatient = await this.patientRepository.save(patient);
     return newPatient;
