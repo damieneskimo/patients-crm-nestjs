@@ -5,12 +5,14 @@ import { UserModule } from './user/user.module';
 import { PatientModule } from './patient/patient.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({autoLoadEntities: true}),
     UserModule,
-    PatientModule
+    PatientModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
