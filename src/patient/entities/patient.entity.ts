@@ -1,3 +1,4 @@
+import { IsEmail, IsNotEmpty } from "class-validator";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { Note } from "./note.entity";
 
@@ -6,10 +7,11 @@ export class Patient {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column() @IsNotEmpty()
     name: string;
 
-    @Column()
+    @IsEmail() @IsNotEmpty()
+    @Column({unique: true})
     email: string;
 
     @Column({default: 'male'})
