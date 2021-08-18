@@ -6,25 +6,24 @@ POST {{host}}/users/login HTTP/1.1
 content-type: application/json
 
 {
-    "user": {
-        "email": "damien@test.com",
-        "password": "password"
-    }
+  "email": "damien@test.com",
+  "password": "password"
 }
 
 ###
 GET {{host}}/me HTTP/1.1
-
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
 
 ###
-
 POST {{host}}/patients HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
 
 {
     "patient": {
         "name": "new paaa",
-        "email": "newpaaa@gmail.com",
+        "email": "fasdfs",
         "gender": "female",
         "phone": "021000000"
     }
@@ -32,3 +31,39 @@ content-type: application/json
 
 ###
 GET {{host}}/patients HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
+
+###
+GET {{host}}/patients/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
+
+###
+PATCH {{host}}/patients/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
+
+{
+  "patient" : {
+    "name": "changed name"
+  }
+}
+
+###
+POST {{host}}/patients/1/notes HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
+
+{
+  "note": {
+    "content" : "some note about the patient"
+  }
+}
+
+###
+DELETE {{host}}/patients/26 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
+
+###
+DELETE {{host}}/patients/1/notes/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWllbkB0ZXN0LmNvbSIsInN1YiI6MSwiaWF0IjoxNjI5MjYwNjIwLCJleHAiOjE2MjkyNjc4MjB9.9LqgI3VUS_h3s5JnRC47VgmWkdrmVfpKs0EuszkIefE
