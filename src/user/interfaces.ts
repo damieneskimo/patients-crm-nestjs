@@ -1,6 +1,5 @@
-import { User } from "./entities/user.entity";
-
 export interface UserData {
+  id: number;
   name: string;
   email: string;
   token: string;

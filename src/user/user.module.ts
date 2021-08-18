@@ -11,6 +11,7 @@ import { ConsoleModule } from 'nestjs-console';
     ConsoleModule
   ],
   controllers: [UserController],
-  providers: [UserService]
+  providers: [UserService],
+  exports: [UserService]
 })
 export class UserModule {}
