@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { CreatePatientDto, UpdatePatientDto } from './dto/patient.dto';
 import { PatientsRO } from './interfaces';
@@ -19,28 +19,30 @@ export class PatientController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.patientService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.patientService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body('patient') updatePatientDto: UpdatePatientDto) {
-    return this.patientService.update(+id, updatePatientDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body('patient') updatePatientDto: UpdatePatientDto) {
+    return this.patientService.update(id, updatePatientDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.patientService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.patientService.remove(id);
   }
 
   @Post(':patientId/notes')
-  addNote(@Param('patientId') patientId: string, @Body('note') createNoteDto: CreateNoteDto) {
+  addNote(@Param('patientId', ParseIntPipe) patientId: number, @Body('note') createNoteDto: CreateNoteDto) {
     return this.patientService.addNote(+patientId, createNoteDto);
   }
 
   @Delete(':patientId/notes/:noteId')
-  removeNote(@Param() params) {
-    const { patientId, noteId } = params;
-    return this.patientService.removeNote(+patientId, +noteId);
+  removeNote(
+    @Param('patientId', ParseIntPipe) patientId: number, 
+    @Param('noteId', ParseIntPipe) noteId: number
+  ) {
+    return this.patientService.removeNote(patientId, noteId);
   }
 }
