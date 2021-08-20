@@ -1,6 +1,4 @@
 import { Body, Controller, Get, HttpException, Post, Req, Request, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { WithoutGlobalGuard } from '../without-global-guard.decorator';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -17,7 +15,6 @@ export class AuthController {
     return req.user;
   }
 
-  @WithoutGlobalGuard()
   @UseGuards(LocalAuthGuard)
   @Post('users/login')
   async login(@Request() req): Promise<any> {
