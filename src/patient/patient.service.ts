@@ -18,6 +18,12 @@ export class PatientService {
   ) {}
 
   async create(createPatientDto: CreatePatientDto): Promise<Patient> {
+    const user = await this.patientRepository.findOne({email: createPatientDto.email})
+    if (user) {
+      const errors = {email: 'Email has already been taken.'};
+      throw new HttpException({message: 'Input data validation failed', errors}, HttpStatus.BAD_REQUEST);
+    }
+    
     const patient = new Patient();
     patient.name = createPatientDto.name;
     patient.email = createPatientDto.email;
