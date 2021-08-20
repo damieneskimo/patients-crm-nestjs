@@ -24,12 +24,6 @@ export class PatientService {
     patient.gender = createPatientDto.gender;
     patient.phone = createPatientDto.phone;
 
-    // const errors = await validate(patient);
-    // if (errors.length > 0) {
-    //   const messages = Object.values(errors[0].constraints);
-    //   throw new HttpException({errors: messages}, HttpStatus.BAD_REQUEST);
-    // }
-
     const newPatient = await this.patientRepository.save(patient);
     return newPatient;
   }
